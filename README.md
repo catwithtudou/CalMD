@@ -1,221 +1,220 @@
-﻿# CalMD - 日历 Markdown 导出工具
+﻿# CalMD - Calendar to Markdown Export Tool
 
-📅 **CalMD** (Calendar to Markdown) 是一个用于从 macOS 日历应用导出日程安排的 Shell 脚本工具，支持自定义时间范围和日历过滤，输出格式化的 Markdown 文本到剪贴板。
+[中文](README_CN.md) | [English](README.md)
 
-## 功能特性
+📅 **CalMD** (Calendar to Markdown) is a Shell script tool for exporting calendar events from macOS Calendar app, supporting custom date ranges and calendar filtering, outputting formatted Markdown text to clipboard.
 
-- 📅 **灵活的时间范围**：支持导出指定日期范围的日程
-- 🚫 **日历黑名单**：可排除不需要的日历（如生日、节假日等）
-- 📝 **Markdown 格式**：输出美观的 Markdown 格式，便于文档编写
-- ⏰ **时间排序**：自动按时间顺序排列所有日程
-- 📋 **剪贴板集成**：直接复制到剪贴板，方便粘贴使用
-- 🔔 **完成通知**：任务完成后显示系统通知
-- 📊 **日历标识**：每个事件显示所属日历名称，支持对齐格式
 
-## 系统要求
+## Features
 
-- macOS 系统
-- 日历应用 (Calendar.app)
+- 📅 **Flexible Date Range**: Export events within specified date ranges
+- 🚫 **Calendar Blacklist**: Exclude unwanted calendars (birthdays, holidays, etc.)
+- 📝 **Markdown Format**: Beautiful Markdown output for easy documentation
+- ⏰ **Time Sorting**: Automatically sort all events by time
+- 📋 **Clipboard Integration**: Direct copy to clipboard for easy pasting
+- 🔔 **Completion Notification**: System notification when task completes
+- 📊 **Calendar Labels**: Display calendar name for each event with aligned formatting
+
+## System Requirements
+
+- macOS
+- Calendar.app
 - Bash Shell
 
-## 文件说明
+## File Description
 
-- `export_calendar.sh` - 主要的导出脚本
-- `calendar_data_output.applescript` - AppleScript 版本（可选）
+- `export_calendar.sh` - Main export script
+- `calendar_data_output.applescript` - AppleScript version (optional)
 
-## 使用方法
+## Usage
 
-### 全局命令使用（推荐）
+### Global Command (Recommended)
 
-如果你已经通过 `install.sh` 安装了 CalMD，可以直接使用 `calmd` 命令：
+If you have installed CalMD via `install.sh`, you can use the `calmd` command directly:
 
 ```bash
-# 导出今天的日程
+# Export today's events
 calmd
 
-# 导出从今天开始7天的日程
+# Export 7 days starting from today
 calmd 0 7
 
-# 导出昨天的日程
+# Export yesterday's events
 calmd -1 1
 
-# 导出明天开始3天的日程，并排除特定日历
-calmd 1 3 "测试日历,垃圾邮件"
+# Export 3 days starting from tomorrow, excluding specific calendars
+calmd 1 3 "Test Calendar,Spam"
 ```
 
-### 本地脚本使用
+### Local Script Usage
 
-如果你选择本地使用方式：
+If you choose local usage:
 
 ```bash
-# 导出今天的日程
+# Export today's events
 ./export_calendar.sh
 
-# 导出从今天开始7天的日程
+# Export 7 days starting from today
 ./export_calendar.sh 0 7
 
-# 导出昨天的日程
+# Export yesterday's events
 ./export_calendar.sh -1 1
 
-# 导出明天开始3天的日程，并排除特定日历
-./export_calendar.sh 1 3 "测试日历,垃圾邮件"
+# Export 3 days starting from tomorrow, excluding specific calendars
+./export_calendar.sh 1 3 "Test Calendar,Spam"
 ```
 
-### 参数说明
+### Parameters
 
-脚本接受三个可选参数：
+1. **Relative Days** (optional): Days relative to today, default `0`
+   - `0`: Today
+   - `1`: Tomorrow
+   - `-1`: Yesterday
+   - `7`: One week later
 
-1. **DAYS_FROM_TODAY** (默认: 0)
-   - `0`: 今天
-   - `1`: 明天
-   - `-1`: 昨天
-   - 其他数字: 相对今天的天数
+2. **Day Range** (optional): Number of days to export, default `1`
+   - `1`: 1 day
+   - `7`: 7 days
+   - `30`: 30 days
 
-2. **DAY_RANGE** (默认: 1)
-   - `1`: 1天
-   - `7`: 一周
-   - 其他数字: 导出的天数范围
+3. **Calendar Blacklist** (optional): Comma-separated calendar names to exclude
 
-3. **CALENDAR_BLACKLIST** (默认: "生日,节假日,垃圾邮件,个人隐私")
-   - 用逗号分隔的日历名称列表
-   - 这些日历中的事件将被排除
-
-### 使用示例
+### Examples
 
 ```bash
-# 导出今天的日程
+# Export today's events
 ./export_calendar.sh
 
-# 导出明天的日程
+# Export tomorrow's events
 ./export_calendar.sh 1 1
 
-# 导出本周的日程（从今天开始的7天）
+# Export this week's events (7 days from today)
 ./export_calendar.sh 0 7
 
-# 导出下周的日程（从明天开始的7天）
+# Export next week's events (7 days from tomorrow)
 ./export_calendar.sh 1 7
 
-# 导出昨天的日程
+# Export yesterday's events
 ./export_calendar.sh -1 1
 
-# 导出今天的日程，但排除特定日历
-./export_calendar.sh 0 1 "工作日历,个人隐私"
+# Export today's events, excluding specific calendars
+./export_calendar.sh 0 1 "Work Calendar,Personal Privacy"
 
-# 导出未来3天的日程，不排除任何日历
+# Export next 3 days' events, no exclusions
 ./export_calendar.sh 0 3 ""
 ```
 
-## 输出格式
+## Output Format
 
-脚本会生成如下格式的 Markdown 文本：
+The script generates Markdown text in the following format:
 
 ```markdown
-**2024年1月15日周一**：
+**Monday, January 15, 2024**:
 
--   **09:00 - 10:00** `[工作日历]`：团队会议
--   **14:00 - 15:30** `[个人日历]`：医生预约
--   **19:00 - 20:00** `[家庭日历]`：晚餐聚会
+-   **09:00 - 10:00** `[Work Calendar]`: Team Meeting
+-   **14:00 - 15:30** `[Personal Calendar]`: Doctor Appointment
+-   **19:00 - 20:00** `[Family Calendar]`: Dinner Party
 
-**2024年1月16日周二**：
+**Tuesday, January 16, 2024**:
 
--   **10:00 - 11:00** `[工作日历]`：项目评审
+-   **10:00 - 11:00** `[Work Calendar]`: Project Review
 ```
 
-## 安装和设置
+## Installation
 
-### 方法一：全局安装（推荐）
+### Method 1: Global Installation (Recommended)
 
-1. 克隆项目：
+1. Clone the repository:
    ```bash
    git clone <repository-url>
    cd CalMD
    ```
 
-2. 运行安装脚本：
+2. Run the installation script:
    ```bash
    chmod +x install.sh
    ./install.sh
    ```
 
-3. 安装完成后，你可以在任何地方使用 `calmd` 命令：
+3. After installation, you can use the `calmd` command anywhere:
    ```bash
-   calmd                           # 导出今天的日程
-   calmd 0 7                       # 导出从今天开始7天的日程
-   calmd -1 1 '测试日历,垃圾邮件'    # 导出昨天的日程，排除指定日历
+   calmd                           # Export today's events
+   calmd 0 7                       # Export 7 days from today
+   calmd -1 1 'Test Calendar,Spam' # Export yesterday, exclude calendars
    ```
 
-### 方法二：本地使用
+### Method 2: Local Usage
 
-1. 下载脚本文件：
+1. Download script files:
    ```bash
    git clone <repository-url>
    cd CalMD
    ```
 
-2. 给脚本添加执行权限：
+2. Add execute permission:
    ```bash
    chmod +x export_calendar.sh
    ```
 
-3. 首次运行时，macOS 可能会要求授权访问日历应用，请点击"允许"。
+3. On first run, macOS may request permission to access Calendar app. Please click "Allow".
 
-## 故障排除
+## Troubleshooting
 
-### 常见问题
+### Common Issues
 
-1. **权限问题**：如果遇到权限错误，请确保：
-   - 脚本有执行权限 (`chmod +x export_calendar.sh`)
-   - 已授权访问日历应用
+1. **Permission Issues**: If you encounter permission errors, ensure:
+   - Script has execute permission (`chmod +x export_calendar.sh`)
+   - Calendar app access is authorized
 
-2. **编码问题**：如果出现字符编码问题，请确保：
-   - 文件使用 UTF-8 编码
-   - 没有 BOM 标记
+2. **Encoding Issues**: If you encounter character encoding problems, ensure:
+   - File uses UTF-8 encoding
+   - No BOM marker present
 
-3. **AppleScript 错误**：如果 AppleScript 执行失败：
-   - 确保日历应用已安装并可正常使用
-   - 检查系统的 AppleScript 权限设置
+3. **AppleScript Errors**: If AppleScript execution fails:
+   - Ensure Calendar app is installed and working properly
+   - Check system AppleScript permission settings
 
-### 调试模式
+### Debug Mode
 
-如需调试，可以在脚本开头添加 `set -x` 来查看详细执行过程：
+For debugging, add `set -x` at the beginning of the script to see detailed execution:
 
 ```bash
 #!/bin/bash
-set -x  # 添加这行进行调试
+set -x  # Add this line for debugging
 ```
 
-## 自定义配置
+## Customization
 
-### 修改默认黑名单
+### Modify Default Blacklist
 
-编辑脚本中的默认黑名单设置：
+Edit the default blacklist setting in the script:
 
 ```bash
-CALENDAR_BLACKLIST=${3:-"你的默认黑名单1,你的默认黑名单2"}
+CALENDAR_BLACKLIST=${3:-"Your Default Blacklist1,Your Default Blacklist2"}
 ```
 
-### 修改输出格式
+### Modify Output Format
 
-可以修改 AppleScript 部分的 `markdownLine` 变量来自定义输出格式。
+You can modify the `markdownLine` variable in the AppleScript section to customize output format.
 
-## 贡献
+## Contributing
 
-欢迎提交 Issue 和 Pull Request 来改进这个工具！
+Welcome to submit Issues and Pull Requests to improve this tool!
 
-## 许可证
+## License
 
 MIT License
 
-## 卸载
+## Uninstall
 
-如果你通过全局安装方式安装了 CalMD，可以使用卸载脚本移除：
+If you installed CalMD via global installation, you can use the uninstall script to remove it:
 
 ```bash
 ./uninstall.sh
 ```
 
-## 更新日志
+## Changelog
 
-- **v1.2.0**: 添加了全局安装功能，支持 `calmd` 命令
-- **v1.1.0**: 添加了命令行参数支持，可自定义日历黑名单
-- **v1.0.0**: 初始版本，支持基本的日历导出功能
+- **v1.2.0**: Added global installation feature, supports `calmd` command
+- **v1.1.0**: Added command-line parameter support, customizable calendar blacklist
+- **v1.0.0**: Initial version with basic calendar export functionality
