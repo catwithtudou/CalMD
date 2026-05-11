@@ -2,6 +2,12 @@
 
 📅 **CalMD** (Calendar to Markdown) 是一个用于从 macOS 日历应用导出日程安排的 Shell 脚本工具，支持自定义时间范围和日历过滤，输出格式化的 Markdown 文本到剪贴板。
 
+## 适用场景 / When to use
+
+- 每天/每周复盘时，把 Calendar 里的日程直接贴进日记、周报或 Obsidian。
+- 需要把一段时间内的会议安排整理成 Markdown，方便继续加工。
+- 想过滤生日、节假日、个人日历等噪音，只保留真正需要回顾的日程。
+
 [🇨🇳 中文文档](README_CN.md) | [🇺🇸 English](README.md)
 
 ## 功能特性
@@ -129,7 +135,7 @@ calmd 1 3 "测试日历,垃圾邮件"
 
 1. 克隆项目：
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/catwithtudou/CalMD.git
    cd CalMD
    ```
 
@@ -150,7 +156,7 @@ calmd 1 3 "测试日历,垃圾邮件"
 
 1. 下载脚本文件：
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/catwithtudou/CalMD.git
    cd CalMD
    ```
 
