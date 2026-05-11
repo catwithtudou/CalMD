@@ -4,6 +4,12 @@
 
 📅 **CalMD** (Calendar to Markdown) is a Shell script tool for exporting calendar events from macOS Calendar app, supporting custom date ranges and calendar filtering, outputting formatted Markdown text to clipboard.
 
+## When to use
+
+- Paste daily or weekly Calendar events into notes, reviews, reports, or Obsidian.
+- Turn a date range of meetings into Markdown for further editing.
+- Filter noisy calendars such as birthdays, holidays, or private events.
+
 
 ## Features
 
@@ -126,7 +132,7 @@ The script generates Markdown text in the following format:
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/catwithtudou/CalMD.git
    cd CalMD
    ```
 
@@ -147,7 +153,7 @@ The script generates Markdown text in the following format:
 
 1. Download script files:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/catwithtudou/CalMD.git
    cd CalMD
    ```
 
